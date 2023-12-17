@@ -5,4 +5,4 @@
 - Nesse momento, o código do client.py é executado e o algoritmo é inicializado 
 
 # Informações Adicionais
-- Para adicionar um novo OS no projeto, busque no drive da cadeira e o importe
+- Para adicionar um novo OS no projeto, busque no Drive da aula e o importe
