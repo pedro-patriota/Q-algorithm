@@ -1,6 +1,6 @@
 #Aqui vocês irão colocar seu algoritmo de aprendizado
 import connection as cn
-from q_learning import QLearning
+from functions import Functions
 
 s = cn.connect(2037)
 
@@ -25,7 +25,7 @@ def decodeAction(action: int, direction: int):
 
 epochs = 10
 
-q_learning = QLearning(alfa=0.1, gama=0.9, epsilon=0.1)
+q_learning = Functions(alfa=0.1, gama=0.9, epsilon=0.1)
 
 for episodes in range(epochs):
     state, reward = cn.get_state_reward(s, "jump")
