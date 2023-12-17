@@ -1,5 +1,5 @@
 # Qlearning
-- Abra rode o 'Aprendizagem por Reforço.exe' dentro da pasta do seu OS
+- Abra e execute o 'Aprendizagem por Reforço.exe' dentro da pasta do seu OS
 - Em um terminal, execute o comando:
     python .\client.py
 - Nesse momento, o código do client.py é executado e o algoritmo é inicializado 
