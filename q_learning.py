@@ -8,15 +8,20 @@ class QLearning:
     q_matrix = np.zeros((25, 4))
     rw = np.array(25*[0])
     state = 0
-
-    def __init__(self, alfa:float, gama:float, epsilon:float, state: Optional[int]):
+    def __init__(self, alfa:float, gama:float, epsilon:float, epochs: Optional[int] = 10):
         self.alfa = alfa
         self.gama = gama
         self.epsilon = epsilon
-        self.state = state
+        self.epochs = epochs
+        
+    def reset(self):
+        """Reset Q-matrix"""
+        self.q_matrix = np.zeros((25, 4))
+        self.rw = np.array(25*[0])
+        self.state = 0
     
     @staticmethod
-    def build_state (state: str) -> tuple:
+    def build_state (state: str) -> tuple[int, int]:
         """Build state from string"""
         plataform = int(state[:5], 2)
         direction = int(state[5:], 2)
@@ -35,4 +40,4 @@ class QLearning:
     def greedy_policy(self) -> int:
         """Greedy policy"""
         return int(np.argmax(self.q_matrix[self.state]))
-    
+
