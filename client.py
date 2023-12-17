@@ -3,12 +3,12 @@ import connection as cn
 from functions import Functions
 
 s = cn.connect(2037)
+action_map = {0: "north", 1: "east", 2: "south", 3: "west"}
 
 def decodeAction(action: int, direction: int):
     """Decode action"""
     
     # Define the mapping of actions to directions
-    action_map = {0: "north", 1: "east", 2: "south", 3: "west"}
 
     # Calculate the difference between the current direction and the desired action
     diff = (action - direction) % 4
@@ -24,15 +24,18 @@ def decodeAction(action: int, direction: int):
         return [cn.get_state_reward(s, "left")]
 
 epochs = 10
-
+state = '00000'
 q_learning = Functions(alfa=0.1, gama=0.9, epsilon=0.1)
 
 for episodes in range(epochs):
-    state, reward = cn.get_state_reward(s, "jump")
-
-    plataform, direction = q_learning.build_state(state=state)
-    q_learning.state = plataform
-    
-    action = q_learning.epsilon_greedy_policy()
-    
-    decodeAction(action, direction)
+    while (True):
+        plataform, direction = q_learning.build_state(state=state)
+        if plataform == 25: break
+        
+        action = q_learning.epsilon_greedy_policy()
+        decodeAction(action, direction)
+        
+        next_state, reward = cn.get_state_reward(s, "jump")
+        q_learning.updateQMatrix(action=action, reward=int(reward), next_state=next_state)
+        state = next_state
+        
