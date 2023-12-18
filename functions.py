@@ -22,8 +22,14 @@ class Functions:
     @staticmethod
     def build_state (state: str) -> tuple[int, int]:
         """Build state from string"""
-        plataform = int(state[:5], 2)
-        direction = int(state[5:], 2)
+        
+        print(state)
+        state = state[2:]
+        first = state[:5]
+        second = state[5:]
+        print(f"first: {first} second: {second}")
+        plataform = int(first, 2)
+        direction = int(second, 2)
 
         print(f"{state} => plataform: {plataform}, direction: {direction}")
         return plataform, direction

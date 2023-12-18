@@ -15,7 +15,7 @@ def decodeAction(action: int, direction: int):
 
     # Determine the appropriate action based on the difference
     if diff == 0:
-        return []
+        return 
     elif diff == 1:
         return [cn.get_state_reward(s, "right")]
     elif diff == 2:
@@ -24,8 +24,8 @@ def decodeAction(action: int, direction: int):
         return [cn.get_state_reward(s, "left")]
 
 epochs = 10
-state = '0000000'
-q_learning = Functions(alfa=0.1, gama=0.9, epsilon=0.1)
+state = '0b0000000'
+q_learning = Functions(alfa=0.7, gama=0.5, epsilon=0.3)
 
 for episodes in range(epochs):
     while (True):
