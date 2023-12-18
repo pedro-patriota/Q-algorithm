@@ -24,7 +24,7 @@ def decodeAction(action: int, direction: int):
         return [cn.get_state_reward(s, "left")]
 
 epochs = 10
-q_learning = Functions(alfa=0.7, gama=0.5, epsilon=0.3)
+q_learning = Functions(alfa=0.7, gama=0.7, epsilon=0.1)
 
 for episodes in range(epochs):
     q_learning.reset()
@@ -40,4 +40,3 @@ for episodes in range(epochs):
         next_state, reward = cn.get_state_reward(s, "jump")
         q_learning.updateQMatrix(action=action, reward=int(reward), next_state=next_state)
         state = next_state
-        

@@ -15,7 +15,6 @@ class Functions:
         
     def reset(self):
         """Reset Q-matrix"""
-        self.q_matrix = np.zeros((25, 4))
         self.plataform = 0
     
     @staticmethod
