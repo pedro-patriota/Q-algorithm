@@ -22,6 +22,7 @@ class Functions:
     @staticmethod
     def build_state (state: str) -> tuple[int, int]:
         """Build state from string"""
+        print(state)
         plataform = int(state[:5], 2)
         direction = int(state[5:], 2)
 
