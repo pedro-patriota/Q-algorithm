@@ -16,14 +16,12 @@ class Functions:
     def reset(self):
         """Reset Q-matrix"""
         self.q_matrix = np.zeros((25, 4))
-        self.rw = np.array(25*[0])
         self.plataform = 0
     
     @staticmethod
     def build_state (state: str) -> tuple[int, int]:
         """Build state from string"""
         
-        print(state)
         state = state[2:]
         plataform = int(state[:5], 2)
         direction = int(state[5:], 2)

@@ -24,10 +24,12 @@ def decodeAction(action: int, direction: int):
         return [cn.get_state_reward(s, "left")]
 
 epochs = 10
-state = '0b0000000'
 q_learning = Functions(alfa=0.7, gama=0.5, epsilon=0.3)
 
 for episodes in range(epochs):
+    q_learning.reset()
+    state = '0b0000000'
+    
     while (True):
         plataform, direction = q_learning.build_state(state=state)
         if plataform == 25: break
