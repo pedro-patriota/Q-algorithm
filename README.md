@@ -5,4 +5,4 @@
 - Nesse momento, o código do client.py é executado e o algoritmo é inicializado 
 
 # Informações Adicionais
-- Para adicionar um novo OS no projeto, busque no Drive da aula e o importe
+- Para adicionar um novo OS no projeto, busque no Drive da aula (https://drive.google.com/drive/folders/1IqrgCxVFRhUetEj6r56vOBO2bKJhp1fh?usp=drive_link) e o importe. Lembre-se de logar na conta cin.ufpe.br
