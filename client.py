@@ -30,7 +30,7 @@ counter = 0
 for episodes in range(epochs):
     q_learning.reset()
     state = '0b0000000'
-    
+
     while (True):
         plataform, direction = q_learning.build_state(state=state)
         q_learning.plaform = plataform
@@ -43,7 +43,7 @@ for episodes in range(epochs):
         decodeAction(action, direction)
         
         next_state, reward = cn.get_state_reward(s, "jump")
-        print(f"{state} => plataform: {plataform}, direction: {direction}, action: {action}, nexstate={next_state}, reward={reward}")
+        print(f"{state} => plataform: {plataform}, direction: {direction}, action: {action}, nexstate={next_state}, reward={reward}, counter={counter}")
         q_learning.updateQMatrix(action=action, reward=int(reward), next_state_total=next_state)
         state = next_state
     q_learning.save()
