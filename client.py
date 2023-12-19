@@ -5,7 +5,7 @@ from functions import Functions
 s = cn.connect(2037)
 action_map = {0: "north", 1: "east", 2: "south", 3: "west"}
 
-def decodeAction(action: int, direction: int):
+def turn_player(action: int, direction: int):
     """Decode action"""
     
     # Define the mapping of actions to directions
@@ -23,7 +23,7 @@ def decodeAction(action: int, direction: int):
     elif diff == 3:
         return [cn.get_state_reward(s, "left")]
 
-epochs = 5
+epochs = 50
 q_learning = Functions(alfa=0.8, gama=0.7, epsilon=0.1)
 
 while True:
@@ -35,13 +35,15 @@ while True:
     if epochs < 0:
         break
 
-    plataform, direction = q_learning.build_state(state=state)
+    platform, direction = q_learning.build_state(state=state)
     
-    action = q_learning.epsilon_greedy_policy()
-    decodeAction(action, direction)
+    action = q_learning.epsilon_greedy_policy(platform)
+    print(action)
+    turn_player(action, direction)
     
     next_state, reward = cn.get_state_reward(s, "jump")
-    print(next_state, reward)
-    q_learning.updateQMatrix(action=action, reward=int(reward), next_state=next_state)
-        
+
+    q_learning.update_table(state=platform, action=action, reward=int(reward), next_state=next_state)
+
+    
 q_learning.save()

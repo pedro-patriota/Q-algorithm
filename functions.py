@@ -5,13 +5,11 @@ from random import uniform
 
 class Functions:
     """Q-Learning algorithm"""
-    def __init__(self, alfa:float, gama:float, epsilon:float, epochs: Optional[int] = 10):
+    def __init__(self, alfa:float, gama:float, epsilon:float):
         self.alfa = alfa
         self.gama = gama
         self.epsilon = epsilon
-        self.epochs = epochs
         self.state = '0b0000000'
-        self.state_int = 0
 
         self.load()
         self.save()
@@ -37,26 +35,30 @@ class Functions:
         """Build state from string"""
         
         state = state[2:]
-        plataform = int(state[:5], 2)
+        platform = int(state[:5], 2)
         direction = int(state[5:], 2)
 
-        #print(f"{state} => plataform: {plataform}, direction: {direction}")
-        return plataform, direction
+        return platform, direction
     
-    def epsilon_greedy_policy(self) -> int:
+    def epsilon_greedy_policy(self, state) -> int:
         """Epsilon-greedy policy"""
         random_int = uniform(0, 1)
 
         if random_int < self.epsilon:
             return np.random.randint(0, 4)
         else:
-            return int(np.argmax(self.q_table[self.state]))
+            return int(np.argmax(self.q_table[state]))
     
     def greedy_policy(self) -> int:
         """Greedy policy"""
         return int(np.argmax(self.q_table[self.state]))
     
-    def updateQMatrix(self, reward:int, next_state:str, action:int):
-        plataform, _ = self.build_state(next_state)
-        max_next_state =  max(self.q_table[plataform])
-        self.q_table[self.state][action] = self.q_table[self.state][action] + self.alfa * (reward + self.gama * max_next_state - self.q_table[self.state][action])
+    def update_table(self, state, reward:int, next_state:str, action:int):
+        next_platform, _ = self.build_state(next_state)
+
+        best_next_action = np.argmax(self.q_table[next_platform])
+        updated_q_value = (1 - self.alfa) * self.q_table[state, action] + self.alfa * (reward + self.gama * self.q_table[next_platform, best_next_action]) 
+        self.q_table[state, action] = updated_q_value
+
+        self.state = next_state
+        #self.q_table[self.state][action] = self.q_table[self.state][action] + self.alfa * (reward + self.gama * max_next_state - self.q_table[self.state][action])
