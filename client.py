@@ -23,25 +23,25 @@ def decodeAction(action: int, direction: int):
     elif diff == 3:
         return [cn.get_state_reward(s, "left")]
 
-epochs = 1
+epochs = 5
 q_learning = Functions(alfa=0.8, gama=0.7, epsilon=0.1)
 
-for episodes in range(epochs):
-    q_learning.reset()
-    state = '0b0000000'
+while True:
+    state = q_learning.state
+
+    if state == '0b0000000':
+        epochs -= 1
+
+    if epochs < 0:
+        break
+
+    plataform, direction = q_learning.build_state(state=state)
     
-    while (True):
-        plataform, direction = q_learning.build_state(state=state)
-        if plataform == 24 or plataform == 25: break
+    action = q_learning.epsilon_greedy_policy()
+    decodeAction(action, direction)
+    
+    next_state, reward = cn.get_state_reward(s, "jump")
+    print(next_state, reward)
+    q_learning.updateQMatrix(action=action, reward=int(reward), next_state=next_state)
         
-        action = q_learning.epsilon_greedy_policy()
-        decodeAction(action, direction)
-        
-        next_state, reward = cn.get_state_reward(s, "jump")
-        q_learning.updateQMatrix(action=action, reward=int(reward), next_state=next_state)
-        state = next_state
-        
-# print the final Q-matrix
-for i in range(25):
-    for j in range(4):
-        print(f"{i},{j}: {q_learning.q_matrix[i][j]}")
+q_learning.save()
