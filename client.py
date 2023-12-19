@@ -45,6 +45,7 @@ for episodes in range(epochs):
         print(f"{state} => plataform: {plataform}, direction: {direction}, action: {action}, nexstate={next_state}, reward={reward}")
         q_learning.updateQMatrix(action=action, reward=int(reward), next_state_total=next_state)
         state = next_state
-        
+    q_learning.save()
+    
 # print the final Q-matrix
 print(q_learning.q_matrix)
