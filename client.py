@@ -25,6 +25,7 @@ def decodeAction(action: int, direction: int):
 
 epochs = 1
 q_learning = Functions(alfa=0.8, gama=0.7, epsilon=0.1)
+q_learning.load()
 counter = 0
 for episodes in range(epochs):
     q_learning.reset()
