@@ -50,4 +50,4 @@ class Functions:
         platform = int(state[:5], 2)
         direction = int(state[5:], 2)
 
-        return platform + direction
+        return platform * 4 + direction
