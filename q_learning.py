@@ -2,30 +2,31 @@ import numpy as np
 from random import uniform
 
 
-class Functions:
+class QLearning:
     """Q-Learning algorithm"""
     def __init__(self, alfa:float, gama:float, epsilon:float):
         self.alfa = alfa
         self.gama = gama
         self.epsilon = epsilon
-        self.state = 0
+        self.initial_state = 2*4
+        self.state = self.initial_state
 
         self.load()
-        self.save()
 
-    def load(self):
-        with open('resultado.txt', 'r') as file:
+    def load(self, path='resultado.txt'):
+        """Load .txt table onto an array"""
+        with open(path, 'r') as file:
             lines = file.readlines()
 
         self.q_table = np.array([list(map(float, line.split())) for line in lines])
 
-    def save(self):
+    def save(self, path='resultado.txt'):
+        """Save q-table array to .txt file"""
         array_str = '\n'.join([' '.join(map(str, row)) for row in self.q_table])
 
-        with open('resultado.txt', 'w') as file:
+        with open(path, 'w') as file:
             file.write(array_str)
 
-    
     def epsilon_greedy_policy(self) -> int:
         """Epsilon-greedy policy"""
         random_int = uniform(0, 1)
@@ -33,6 +34,7 @@ class Functions:
         if random_int < self.epsilon:
             return np.random.randint(0, 3)
         else:
+            print(self.q_table[self.state])
             return int(np.argmax(self.q_table[self.state]))
     
     def update_table(self, reward:int, next_state:int, action:int):
